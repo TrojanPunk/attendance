@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { StudentData } from 'src/shared/models/interface';
 import { StudentDataService } from 'src/shared/services/student-data.service';
 import { Router } from '@angular/router';
+import { PATTERN } from 'src/shared/constants/constant';
 
 @Component({
   selector: 'app-add-student',
@@ -17,10 +17,10 @@ export class AddStudentComponent implements OnInit {
 
   ngOnInit(): void {
     this.studentData = this.fb.group({
-      id: [''],
+      id: ['', Validators.required],
       name: [''],
-      email: [''],
-      number: ['']
+      email: ['', [Validators.required, Validators.email]],
+      number: ['', [Validators.required,Validators.minLength(10), Validators.maxLength(10), this.validateNumber]]
     })
   }
 
@@ -30,9 +30,17 @@ export class AddStudentComponent implements OnInit {
       {
         next: (res) => {
           this.router.navigate(['/dashboard'])
-        },
+        },  
         error: error => alert('error' + error)
       },
     );
+  }
+
+  validateNumber(control: AbstractControl) : {[key: string] : any} | null {
+    if (!/^\d+$/.test(control.value)) {
+      console.log(true);
+      return { 'phoneNumberInvalid': true };
+    }
+    return null;
   }
 }

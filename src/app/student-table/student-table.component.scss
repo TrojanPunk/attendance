@@ -1,3 +1,130 @@
-.action-buttons {
-    width: 15rem;
+$rowColor1: #f3f7ff;
+$rowColor2: #d9e6fe;
+$primaryColor: #a8c5ff;
+
+.mat-column-actions {
+    width: 30%;
 }
+
+table,
+tr,
+th,
+td,
+mat-paginator {
+    font-family: 'Montserrat';
+}
+
+tr {
+    border: none;
+}
+
+tr.mat-mdc-row:nth-child(even) {
+    background: $rowColor1;
+}
+
+tr.mat-mdc-row:nth-child(odd) {
+    background: $rowColor2;
+}
+
+td.mat-mdc-cell {
+    border: none
+}
+
+td.mat-column-email {
+    font-weight: 500;
+}
+
+.mat-elevation-z8 {
+    width: 90%;
+    border-radius: 10px;
+    background: $primaryColor;
+}
+
+tr.mat-mdc-header-row {
+    background: $primaryColor;
+    font-weight: 600;
+}
+
+mat-paginator {
+    background-color: $primaryColor;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.mat-icon {
+    transform: scale(0.7);
+}
+
+tr {
+    font-size: 12px;
+}
+
+:host::ng-deep .mat-mdc-focus-indicator {
+    color: #5E94FF
+}
+
+.column-heading {
+    gap: 10px;
+}
+
+:host::ng-deep table {
+    border-radius: 20px;
+}
+
+.input {
+    width: 70%;
+    border: 0px;
+    background-color: #edf2f5;
+    border-radius: 5px;
+    padding: 0rem 1rem;
+  }
+
+  .form-controls {
+    width: 100%;
+    font-family: 'Montserrat';
+  }
+
+  .form-container {
+    gap: 20px;
+  }
+
+  .input:focus {
+    border: none;
+    outline: none;
+    color: #424242;
+  }
+
+  .input {
+    width: 70%;
+    border: 0px;
+    background-color: #edf2f5;
+    border-radius: 5px;
+    padding: 0rem 1rem;
+  }
+
+  .input::placeholder {
+    font-size: 12px;
+    font-weight: 400;
+    color: #818181;
+  }
+
+  .btn {
+    background: #5E94FF;
+    border: none;
+    font-size: 12px;
+    padding: 0.75rem 2rem;
+    font-family: 'Montserrat';
+    font-weight: 500;
+}
+
+.btn:hover {
+    background: #4b87ff;
+}
+
+@media only screen and (max-width: 1000px) {
+    .mat-elevation-z8 {
+        width: 100%;
+    }
+}
+

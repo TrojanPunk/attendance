@@ -12,6 +12,8 @@ export class StudentDataService {
   attendanceData : any = []
   subject = new BehaviorSubject<StudentData[]>([]);
 
+  constructor(private http: HttpClient) { }
+
   fetchSpecificDataFromAPI(): void{
     this.http.get<StudentData[]>(`https://65389751a543859d1bb19c94.mockapi.io/attendance-tracker/student`)
     .subscribe({
@@ -44,5 +46,10 @@ export class StudentDataService {
     return this.http.delete(`https://65389751a543859d1bb19c94.mockapi.io/attendance-tracker/student/${id}`);
   }
 
-  constructor(private http: HttpClient) { }
+
+  // function that returns behaviourSubject
+  // 1. maintain a variable that stores your response from the API
+  // 2. if response exists, return the behaviour subject
+  // 3. if response in that variable is null, fetch a new value and emit/next it
+  // 4. ALWYAS return the behavioursubject
 }

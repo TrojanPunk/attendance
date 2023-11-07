@@ -22,3 +22,5 @@ export const DAYS: any = {
     "Sat": "Saturday",
     "Sun": "Sunday"
 }
+
+export const PATTERN = /^\d{10}$/;

@@ -10,7 +10,7 @@ import {MediaMatcher} from '@angular/cdk/layout';
 export class SidebarComponent implements OnDestroy {
   mobileQuery: MediaQueryList;
 
-  fillerNav = Array.from([{title: 'Dashboard', link: 'dashboard'}, {title: 'Add Student', link: 'add-student'}, {title: 'Attendance', link: 'attendance'}]);
+  fillerNav = Array.from([{title: 'Dashboard', link: 'dashboard', icon: 'dashboard'}, {title: 'Add Student', link: 'add-student', icon: 'person_add'}, {title: 'Attendance', link: 'attendance', icon: 'note_add'}]);
 
   private _mobileQueryListener: () => void;
 

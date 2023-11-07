@@ -1,3 +1,6 @@
+$hoverColor: #f8f1ff;
+$primaryColor: #5E94FF;
+
 .example-sidenav-container {
     height: calc(100vh - 64px);
   }
@@ -10,6 +13,72 @@
     height: 100%;
   }
 
-  mat-toolbar {
-    background: #652fbc;
+  :host::ng-deep mat-toolbar {
+    background: white;
+    color: $primaryColor;
+    border-bottom: 1px solid #222E3C;
   }
+
+  .mat-mdc-list-item-unscoped-content{
+    font-family: 'Montserrat';
+  }
+
+  .elem {
+    gap: 10px;
+  }
+
+  :host::ng-deep .mdc-list-item__content {
+    gap: 20px;
+  }
+
+
+  :host::ng-deep .mat-mdc-list-item-unscoped-content {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-family: 'Montserrat';
+    font-weight: 500;
+    font-size: 14px;
+  }
+
+  :host::ng-deep .mat-mdc-list-item-unscoped-content {
+    color: rgb(206, 206, 206);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  :host::ng-deep .mat-mdc-list-item:hover {
+
+    .mat-mdc-list-item-unscoped-content {
+      color: white;
+      font-size: 12px;
+      font-weight: 500;
+    }
+  }
+
+  :host::ng-deep .mat-mdc-list-item:focus {
+    background-image: linear-gradient(to right, rgb(82, 96, 112, 0.7), rgb(82, 96, 112, 0.2));
+    border-left: 5px solid $primaryColor;
+    width: 98%;
+    border-radius: 0px 40px 40px 0px;
+
+    .mat-mdc-list-item-unscoped-content {
+      color: white;
+    }
+  }
+
+  :host::ng-deep .mat-mdc-cell {
+    margin: 1rem;
+  }
+
+  :host::ng-deep .mat-mdc-text-field-wrapper {
+    background: #e0eaff;
+  }
+
+  :host::ng-deep .mat-sidenav {
+    background: #222E3C;
+}
+
+:host::ng-deep .mat-toolbar {
+  gap: 10px;
+}

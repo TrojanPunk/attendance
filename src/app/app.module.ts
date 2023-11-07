@@ -26,7 +26,7 @@ import { DialogAnimationsExampleDialogComponent } from './dialog-animations-exam
     AttendanceComponent,
     ViewComponent,
     StudentTableComponent,
-    DialogAnimationsExampleDialogComponent
+    DialogAnimationsExampleDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +35,7 @@ import { DialogAnimationsExampleDialogComponent } from './dialog-animations-exam
     MaterialModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

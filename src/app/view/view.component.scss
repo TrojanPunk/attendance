@@ -1,0 +1,99 @@
+$primaryColorLight: #b2cdff;
+$rowColor1: #f3f7ff;
+$rowColor2: #d9e6fe;
+$tablePrimaryColor: #a8c5ff;
+$primaryColor: #5E94FF;
+$hoverColor: #4b87ff;
+
+.title {
+    font-family: 'Montserrat';
+    font-weight: 700;
+    color: $primaryColor;
+    font-size: 40px;
+}
+
+.empty {
+    color: $primaryColorLight;
+}
+
+.btn {
+    background: $primaryColor;
+    border: none;
+    font-size: 12px;
+    padding: 0.75rem 2rem;
+    font-family: 'Montserrat';
+    font-weight: 500;
+}
+
+.btn:hover {
+    background: $hoverColor;
+}
+
+
+.mat-column-actions {
+    width: 30%;
+}
+
+table,
+tr,
+th,
+td,
+mat-paginator {
+    font-family: 'Montserrat';
+}
+
+tr {
+    border: none;
+}
+
+tr.mat-mdc-row:nth-child(even) {
+    background: $rowColor1;
+}
+
+tr.mat-mdc-row:nth-child(odd) {
+    background: $rowColor2;
+}
+
+td.mat-mdc-cell {
+    border: none
+}
+
+td.mat-column-email {
+    font-weight: 500;
+}
+
+.mat-elevation-z8 {
+    width: 90%;
+    border-radius: 10px;
+    background: $tablePrimaryColor;
+}
+
+tr.mat-mdc-header-row {
+    background: $tablePrimaryColor;
+    font-weight: 600;
+}
+
+mat-paginator {
+    background-color: $tablePrimaryColor;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.mat-icon {
+    transform: scale(0.7);
+}
+
+tr {
+    font-size: 12px;
+}
+
+.mat-drawer-content {
+    background: #f6fafa;
+}
+
+@media only screen and (max-width: 1000px) {
+    .mat-elevation-z8 {
+        width: 100%;
+    }
+}

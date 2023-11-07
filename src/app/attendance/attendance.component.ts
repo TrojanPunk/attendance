@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StudentDataService } from 'src/shared/services/student-data.service';
 import { AttendanceDetails, IdData, StudentData } from 'src/shared/models/interface';
 import { BehaviorSubject } from 'rxjs';
@@ -24,15 +24,15 @@ export class AttendanceComponent implements OnInit{
     "attendance" : [{"date": new Date("2023-01-01"), "status": "absent", "id": 0}]}
   );
 
-  constructor(private http: HttpClient, private studentDataService: StudentDataService, private fb: FormBuilder, private router: Router) { }
+  constructor(private studentDataService: StudentDataService, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.studentDataService.fetchSpecificDataFromAPI();
     this.getStudentIds()
     this.attendanceData = this.fb.group({
-      id: [''],
-      status: [''],
-      date: ['']
+      id: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      date: ['', [Validators.required]]
     })
   }
 

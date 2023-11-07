@@ -25,20 +25,7 @@ export class ViewComponent implements AfterViewInit {
     this.dataSource.paginator = this.paginator;
     this.getStudentId()
     console.log(this.STUDENT_ID)
-
-    this.studentDataService.fetchSpecificStudentFromAPI(Number(this.STUDENT_ID)!).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.dataSource.data = res.attendance;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error(err);
-      },
-      complete: () => {
-        console.log('Call completed!');
-      }
-    });
+    this.getStudentData()
   }
 
   constructor(private studentDataService: StudentDataService, private activatedRoute: ActivatedRoute) { }
@@ -47,6 +34,23 @@ export class ViewComponent implements AfterViewInit {
     this.activatedRoute.paramMap.subscribe((params:ParamMap) => {
       console.log(params.get('id'));
       this.STUDENT_ID = params.get('id');
+    });
+  }
+
+  getStudentData() {
+    this.studentDataService.fetchSpecificStudentFromAPI(Number(this.STUDENT_ID)!).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.dataSource.data = res.attendance;
+        this.loading = false;
+        console.log('datasource', this.dataSource.data)
+      },
+      error: (err) => {
+        console.error(err);
+      },
+      complete: () => {
+        console.log('Call completed!');
+      }
     });
   }
 
@@ -59,5 +63,34 @@ export class ViewComponent implements AfterViewInit {
     let year: string = dateString[3];    
 
     return DAYS[dayName] + ', ' + day + ' ' + MONTHS[month] + ' ' + year;
+  }
+
+  // Sort by Date
+  sortAscendingByDate() {
+    this.dataSource.data.sort(function (x, y) {
+      if (x.date.toString() < y.date.toString()) {
+        return -1;
+      }
+
+      if (x.date.toString() > y.date.toString()) {
+        return 1;
+      }
+      return 0;
+    })
+    this.getStudentData();
+  }
+
+  sortDescendingByDate() {
+    this.dataSource.data.sort(function (x, y) {
+      if (x.date.toString() > y.date.toString()) {
+        return -1;
+      }
+
+      if (x.date.toString() < y.date.toString()) {
+        return 1;
+      }
+      return 0;
+    })
+    this.getStudentData();
   }
 }

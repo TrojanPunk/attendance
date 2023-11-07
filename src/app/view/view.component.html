@@ -1,11 +1,29 @@
-<div class="mat-elevation-z8 d-flex flex-column align-items-center">
-    <mat-spinner *ngIf="loading; else notLoading"></mat-spinner>
-    <ng-template #notLoading>
+<div class="empty-container d-flex flex-column align-items-center h-100 justify-content-center"
+    *ngIf="!loading && dataSource.data.length == 0">
+    <h1 class="title mb-3">IT'S <span class="empty">EMPTY</span> HERE. THEY NEVER SHOWED UP!</h1>
+    <img src="assets/svgs/empty.svg" />
+    <button class="btn btn-primary mt-5" [routerLink]="'/attendance'">Mark Attendance</button>
+</div>
+
+<div class="loader-container container-fluid d-flex align-items-center justify-content-center h-100" *ngIf="loading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div class="container" class="d-flex justify-content-center" *ngIf="!loading">
+    <div class="mat-elevation-z8 d-flex flex-column align-items-center mt-4">
         <table mat-table [dataSource]="dataSource">
 
             <!-- Date Column -->
             <ng-container matColumnDef="date">
-                <th mat-header-cell *matHeaderCellDef> Date </th>
+                <th mat-header-cell *matHeaderCellDef>
+                    <div class="column-heading d-flex align-items-center">
+                        <p class="heading mb-0"> Date </p>
+                        <div class="sort-buttons d-flex flex-column align-items-center">
+                            <mat-icon type="button" (click)="sortAscendingByDate()" id="email-up" class="sort">arrow_drop_up</mat-icon>
+                            <mat-icon type="button" (click)="sortDescendingByDate()" id="email-down" class="sort">arrow_drop_down</mat-icon>
+                        </div>
+                    </div>
+                </th>
                 <td mat-cell *matCellDef="let element"> {{dateManipulation(element.date)}} </td>
             </ng-container>
 
@@ -13,7 +31,8 @@
             <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef> Status </th>
                 <td mat-cell *matCellDef="let element">
-                    <div *ngIf="element.status == 'present' || element.status == 1; else absent"> Present </div>
+                    <div [ngClass]="'badge badge-success bg-success'"
+                        *ngIf="element.status == 'present' || element.status == 1; else absent"> Present </div>
                     <ng-template #absent> Absent </ng-template>
                 </td>
             </ng-container>
@@ -26,5 +45,6 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
             aria-label="Select page of periodic elements">
         </mat-paginator>
-    </ng-template>
+
+    </div>
 </div>
