@@ -1,6 +1,7 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
     <mat-toolbar color="primary" class="example-toolbar">
-        <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+        <button mat-icon-button (click)="snav.toggle()"><mat-icon matTooltip="Open Side Menu"
+            aria-label="Opens the sidebar">menu</mat-icon></button>
         <h1 class="example-app-name"><img src="assets/svgs/logo.svg" /></h1>
     </mat-toolbar>
 

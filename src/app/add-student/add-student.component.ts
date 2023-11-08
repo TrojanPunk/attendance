@@ -3,7 +3,6 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { StudentData } from 'src/shared/models/interface';
 import { StudentDataService } from 'src/shared/services/student-data.service';
 import { Router } from '@angular/router';
-import { PATTERN } from 'src/shared/constants/constant';
 
 @Component({
   selector: 'app-add-student',
@@ -36,9 +35,8 @@ export class AddStudentComponent implements OnInit {
     );
   }
 
-  validateNumber(control: AbstractControl) : {[key: string] : any} | null {
+  validateNumber(control: AbstractControl) : {[key: string] : boolean} | null {
     if (!/^\d+$/.test(control.value)) {
-      console.log(true);
       return { 'phoneNumberInvalid': true };
     }
     return null;

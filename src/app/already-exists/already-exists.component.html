@@ -1,0 +1,9 @@
+<h1 mat-dialog-title class="w-100 mb-0">Record Already Exists!</h1>
+<div mat-dialog-content>
+    The student attendance for this record already exists
+</div>
+<img src="assets/svgs/delete.svg" />
+<div mat-dialog-actions>
+    <button matTooltip="Go Back"
+    aria-label="Goes back to the attendance form" class="bg-primary text-light" (click)="closeDialog()" mat-button mat-dialog-close cdkFocusInitial>Back</button>
+</div>

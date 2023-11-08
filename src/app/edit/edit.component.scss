@@ -1,0 +1,43 @@
+$primaryColor: #5E94FF;
+
+.card {
+    border: none;
+    background: transparent;
+    font-family: 'Montserrat';
+}
+
+label {
+    font-weight: 500;
+}
+
+input {
+    background: #EEF3F7;
+    border: none;
+    height: 40px;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+input:active {
+    border: none;
+}
+
+input::placeholder {
+    font-size: 12px;
+    color: #9BA6B9;
+}
+
+.btn {
+    background: $primaryColor;
+    border: none;
+    font-size: 12px;
+    padding: 0.75rem 2rem;
+    font-family: 'Montserrat';
+    font-weight: 500;
+}
+
+.form-control:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    background: #EEF3F7;
+}

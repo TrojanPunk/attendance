@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { StudentData, StudentFormData } from '../models/interface';
 import { BehaviorSubject } from 'rxjs';
+import { API_URL } from '../constants/constant';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class StudentDataService {
   constructor(private http: HttpClient) { }
 
   fetchSpecificDataFromAPI(): void{
-    this.http.get<StudentData[]>(`https://65389751a543859d1bb19c94.mockapi.io/attendance-tracker/student`)
+    this.http.get<StudentData[]>(API_URL)
     .subscribe({
       next: res => {
         this.subject.next(res);
@@ -29,21 +30,25 @@ export class StudentDataService {
 
   // GET data
   fetchSpecificStudentFromAPI(id: number): Observable<any> {
-    return this.http.get(`https://65389751a543859d1bb19c94.mockapi.io/attendance-tracker/student/${id}`)
+    return this.http.get(API_URL + `/${id}`)
   }
 
-  postFormData(postData: StudentFormData) {
-    return this.http.post('https://65389751a543859d1bb19c94.mockapi.io/attendance-tracker/student', postData);
+  postFormData(postData: StudentFormData): Observable<StudentData> {
+    return this.http.post<StudentData>(API_URL, postData);
   }
 
   // PUT Data
-  postAttendance(id: number, postAttendanceData: StudentData): Observable<any> {
-    return this.http.put(`https://65389751a543859d1bb19c94.mockapi.io/attendance-tracker/student/${id}`, postAttendanceData)
+  postAttendance(id: number, postAttendanceData: StudentData): Observable<StudentData> {
+    return this.http.put<StudentData>(API_URL + `/${id}`, postAttendanceData);
+  }
+
+  putFormData(id: number, putStudentData: StudentData): Observable<StudentData> {
+    return this.http.put<StudentData>(API_URL + `/${id}`, putStudentData);
   }
 
   // DELETE Data
   deleteStudent(id: number) {
-    return this.http.delete(`https://65389751a543859d1bb19c94.mockapi.io/attendance-tracker/student/${id}`);
+    return this.http.delete(API_URL + `/${id}`);
   }
 
 

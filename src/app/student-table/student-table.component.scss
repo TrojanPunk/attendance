@@ -3,31 +3,40 @@ $rowColor2: #d9e6fe;
 $primaryColor: #a8c5ff;
 
 .mat-column-actions {
-    width: 30%;
+    width: 12rem;
+    color: #9BA6B9;
 }
 
 table,
 tr,
 th,
 td,
-mat-paginator {
+mat-paginator, .mat-mdc-text-field-wrapper {
     font-family: 'Montserrat';
+}
+
+mat-form-field {
+    border: none;
+    width: 80%;
+}
+
+.mat-mdc-text-field-wrapper:focus {
+    border: none;
+    background: #4b87ff;
+    width: 70%;
 }
 
 tr {
     border: none;
 }
 
-tr.mat-mdc-row:nth-child(even) {
-    background: $rowColor1;
+:host::ng-deep .mat-mdc-text-field-wrapper {
+    background: #EEF3F7;
 }
 
-tr.mat-mdc-row:nth-child(odd) {
-    background: $rowColor2;
-}
-
-td.mat-mdc-cell {
-    border: none
+.label {
+    font-size: 12px;
+    font-family: 'Montserrat';  
 }
 
 td.mat-column-email {
@@ -37,23 +46,25 @@ td.mat-column-email {
 .mat-elevation-z8 {
     width: 90%;
     border-radius: 10px;
-    background: $primaryColor;
+    box-shadow: none;
 }
 
 tr.mat-mdc-header-row {
-    background: $primaryColor;
     font-weight: 600;
 }
 
 mat-paginator {
-    background-color: $primaryColor;
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    background: #F6F8F9;
+    margin-top: 20px;
 }
 
-.mat-icon {
-    transform: scale(0.7);
+.mat-icon{
+    height:20px !important;
+    width:20px !important;
+    font-size:16px !important;
 }
 
 tr {
@@ -72,13 +83,7 @@ tr {
     border-radius: 20px;
 }
 
-.input {
-    width: 70%;
-    border: 0px;
-    background-color: #edf2f5;
-    border-radius: 5px;
-    padding: 0rem 1rem;
-  }
+
 
   .form-controls {
     width: 100%;
@@ -87,26 +92,6 @@ tr {
 
   .form-container {
     gap: 20px;
-  }
-
-  .input:focus {
-    border: none;
-    outline: none;
-    color: #424242;
-  }
-
-  .input {
-    width: 70%;
-    border: 0px;
-    background-color: #edf2f5;
-    border-radius: 5px;
-    padding: 0rem 1rem;
-  }
-
-  .input::placeholder {
-    font-size: 12px;
-    font-weight: 400;
-    color: #818181;
   }
 
   .btn {
@@ -122,9 +107,13 @@ tr {
     background: #4b87ff;
 }
 
+.control-buttons {
+    gap: 20px
+}
+
 @media only screen and (max-width: 1000px) {
     .mat-elevation-z8 {
-        width: 100%;
+        width: 100% !important;
     }
 }
 

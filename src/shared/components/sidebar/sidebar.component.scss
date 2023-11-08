@@ -4,23 +4,30 @@ $primaryColor: #5E94FF;
 .example-sidenav-container {
     height: calc(100vh - 64px);
   }
-
-  .mat-sidenav {
-    width: 200px;
-  }
   
   .mat-sidenav-content {
     height: 100%;
   }
 
   :host::ng-deep mat-toolbar {
-    background: white;
+    background: #222E3C;
     color: $primaryColor;
     border-bottom: 1px solid #222E3C;
   }
 
   .mat-mdc-list-item-unscoped-content{
     font-family: 'Montserrat';
+  }
+
+  :host::ng-deep .mat-mdc-list-item {
+    width: 90%;
+  }
+
+  :host::ng-deep .mat-mdc-list-base {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
   }
 
   .elem {
@@ -46,24 +53,27 @@ $primaryColor: #5E94FF;
     font-size: 12px;
     font-weight: 500;
   }
-
+  
   :host::ng-deep .mat-mdc-list-item:hover {
-
+    
     .mat-mdc-list-item-unscoped-content {
-      color: white;
+      color: #9BA6B9;
       font-size: 12px;
       font-weight: 500;
     }
   }
 
+  :host::ng-deep .mat-mdc-list-item-unscoped-content {
+    color: #9BA6B9;
+  }
+
   :host::ng-deep .mat-mdc-list-item:focus {
-    background-image: linear-gradient(to right, rgb(82, 96, 112, 0.7), rgb(82, 96, 112, 0.2));
-    border-left: 5px solid $primaryColor;
-    width: 98%;
-    border-radius: 0px 40px 40px 0px;
+    background: #fefeff;
+    width: 90%;
+    border-radius: 5px;
 
     .mat-mdc-list-item-unscoped-content {
-      color: white;
+      color: $primaryColor;
     }
   }
 
@@ -76,9 +86,13 @@ $primaryColor: #5E94FF;
   }
 
   :host::ng-deep .mat-sidenav {
-    background: #222E3C;
+    width: 250px;
 }
 
 :host::ng-deep .mat-toolbar {
   gap: 10px;
+}
+
+:host::ng-deep .mat-drawer-content {
+  background: #F6F8F9;
 }

@@ -15,11 +15,11 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 export class StudentTableComponent implements AfterViewInit {
   displayedColumns: string[] = ['id', 'name', 'number', 'email', 'actions'];
   allStudents: StudentData[] = [];
-  hey: StudentData[] = [];
-  loading: boolean = true;
-  dataSource = new MatTableDataSource<StudentData>(this.allStudents);
-  searchForm: FormGroup = this.fb.group({title: this.fb.control('')});
   displayedStudents: StudentData[] = [];
+  loading: boolean = true;
+  dataSource = new MatTableDataSource<StudentData>(this.displayedStudents);
+  searchForm: FormGroup = this.fb.group({ title: this.fb.control('') });
+
   title = 'reactive-form';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -38,7 +38,7 @@ export class StudentTableComponent implements AfterViewInit {
       {
         next: (studentData) => {
           this.dataSource.data = studentData;
-          this.displayedStudents = this.dataSource.data;
+          this.displayedStudents = studentData;
           this.loading = false;
         },
 
@@ -46,6 +46,15 @@ export class StudentTableComponent implements AfterViewInit {
           console.error(err)
         }
       })
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
   openDialog(enterAnimationDuration: string, exitAnimationDuration: string, id: number): void {
@@ -68,99 +77,101 @@ export class StudentTableComponent implements AfterViewInit {
 
   filterOnName(query: string) {
     const RETURN_ARRAY = this.dataSource.data.filter(student => student.name.toLowerCase().includes(query?.toLowerCase()))
-    console.log(RETURN_ARRAY);
     return RETURN_ARRAY;
   }
 
   logForm() {
     if (this.searchForm.valid) {
-      console.log(this.searchForm.value?.title)
-      this.dataSource.data = this.filterOnName(this.searchForm.value?.title);
+      this.displayedStudents = this.filterOnName(this.searchForm.value?.title);
     }
 
     else {
-      this.dataSource.data = this.dataSource.data;
+      this.displayedStudents = this.dataSource.data;
     }
-    console.log(this.dataSource.data)
+    this.dataSource.paginator = this.paginator;
   }
 
-// Sorting Functions
-sortAscending(key: string) {
+  manipulateName(name: string) {
+    return name.split(" ")[0];
+  }
 
-  this.dataSource.data.sort(function (x, y) {
-    let currX;
-    let currY;
+  // Sorting Functions
+  sortAscending(key: string) {
 
-    switch (key) {
-      case "name":
-        currX = x.name;
-        currY = y.name;
-        break;
+    this.displayedStudents.sort(function (x, y) {
+      let currX;
+      let currY;
 
-      case "id":
-        currX = x.id;
-        currY = y.id;
-        break;
+      switch (key) {
+        case "name":
+          currX = x.name;
+          currY = y.name;
+          break;
 
-      case "email":
-        currX = x.email;
-        currY = y.email;
-        break;
+        case "id":
+          currX = x.id;
+          currY = y.id;
+          break;
 
-      case "number":
-        currX = x.number;
-        currY = y.number;
-        break;
-    }
+        case "email":
+          currX = x.email;
+          currY = y.email;
+          break;
 
-    if (currX! < currY!) {
-      return -1;
-    }
+        case "number":
+          currX = x.number;
+          currY = y.number;
+          break;
+      }
 
-    if (currX! > currY!) {
-      return 1;
-    }
-    return 0;
-  })
-  this.getStudentData();
-}
+      if (currX! < currY!) {
+        return -1;
+      }
 
-sortDescending(key: string) {
-  this.dataSource.data.sort(function (x, y) {
-    let currX;
-    let currY;
+      if (currX! > currY!) {
+        return 1;
+      }
+      return 0;
+    })
+    this.getStudentData();
+  }
 
-    switch (key) {
-      case "name":
-        currX = x.name;
-        currY = y.name;
-        break;
+  sortDescending(key: string) {
+    this.displayedStudents.sort(function (x, y) {
+      let currX;
+      let currY;
 
-      case "id":
-        currX = x.id;
-        currY = y.id;
-        break;
+      switch (key) {
+        case "name":
+          currX = x.name;
+          currY = y.name;
+          break;
 
-      case "email":
-        currX = x.email;
-        currY = y.email;
-        break;
+        case "id":
+          currX = x.id;
+          currY = y.id;
+          break;
 
-      case "number":
-        currX = x.number;
-        currY = y.number;
-        break;
-    }
+        case "email":
+          currX = x.email;
+          currY = y.email;
+          break;
 
-    if (currX! > currY!) {
-      return -1;
-    }
+        case "number":
+          currX = x.number;
+          currY = y.number;
+          break;
+      }
 
-    if (currX! < currY!) {
-      return 1;
-    }
-    return 0;
-  })
-  this.getStudentData();
-}
+      if (currX! > currY!) {
+        return -1;
+      }
+
+      if (currX! < currY!) {
+        return 1;
+      }
+      return 0;
+    })
+    this.getStudentData();
+  }
 }

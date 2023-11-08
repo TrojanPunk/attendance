@@ -10,15 +10,15 @@
                     <div class="card-body">
                         <div class="m-sm-3">
                             <form [formGroup]="studentData" (submit)="addStudent()" novalidate>
-                                <div class="mb-4">
+                                <!-- <div class="mb-4">
                                     <label class="form-label">Registration ID</label>
                                     <input class="form-control form-control-md" type="number" formControlName="id"
-                                        placeholder="Registration Number" />
+                                        placeholder="Registration Number" [value]="STUDENT_ID" />
                                     <sub *ngIf="studentData.controls['id'].invalid && studentData.controls['id'].dirty && studentData.controls['id'].errors"
                                         class="text-danger bg-transparent">
                                         Registration Number is required*
                                     </sub>
-                                </div>
+                                </div> -->
                                 <div class="mb-4">
                                     <label class="form-label">Full name</label>
                                     <input class="form-control form-control-md" type="text" formControlName="name"
@@ -60,7 +60,7 @@
                                 </div>
                                 <div class="d-grid gap-2 mt-3">
                                     <button type="submit" [disabled]="!studentData.valid"
-                                        class="btn btn-md btn-primary">Add User</button>
+                                        class="btn btn-md btn-primary">Save Changes</button>
                                 </div>
                             </form>
                         </div>

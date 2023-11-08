@@ -24,3 +24,5 @@ export const DAYS: any = {
 }
 
 export const PATTERN = /^\d{10}$/;
+
+export const API_URL = `https://65389751a543859d1bb19c94.mockapi.io/attendance-tracker/student`

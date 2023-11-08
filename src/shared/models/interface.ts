@@ -34,3 +34,8 @@ export interface AssignAttendance {
     date: string;
     status: string;
 }
+
+export interface AttendanceRecords {
+    date: string;
+    count: number;
+}

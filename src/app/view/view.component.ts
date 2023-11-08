@@ -24,7 +24,6 @@ export class ViewComponent implements AfterViewInit {
     this.loading = true;
     this.dataSource.paginator = this.paginator;
     this.getStudentId()
-    console.log(this.STUDENT_ID)
     this.getStudentData()
   }
 
@@ -32,7 +31,6 @@ export class ViewComponent implements AfterViewInit {
 
   getStudentId(): void {
     this.activatedRoute.paramMap.subscribe((params:ParamMap) => {
-      console.log(params.get('id'));
       this.STUDENT_ID = params.get('id');
     });
   }
@@ -40,16 +38,13 @@ export class ViewComponent implements AfterViewInit {
   getStudentData() {
     this.studentDataService.fetchSpecificStudentFromAPI(Number(this.STUDENT_ID)!).subscribe({
       next: (res) => {
-        console.log(res);
         this.dataSource.data = res.attendance;
         this.loading = false;
-        console.log('datasource', this.dataSource.data)
       },
       error: (err) => {
         console.error(err);
       },
       complete: () => {
-        console.log('Call completed!');
       }
     });
   }

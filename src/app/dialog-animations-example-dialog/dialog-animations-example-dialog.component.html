@@ -1,8 +1,11 @@
-<h1 mat-dialog-title class="w-100">Delete Student Record</h1>
+<h1 mat-dialog-title class="w-100 mb-0">Delete Student Record</h1>
 <div mat-dialog-content>
     Would you like to delete this student record?
 </div>
+<img src="assets/svgs/delete.svg" />
 <div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Back</button>
-    <button class="bg-danger text-light" (click)="deleteStudentRecord()" mat-button mat-dialog-close cdkFocusInitial>Delete</button>
+    <button mat-button mat-dialog-close matTooltip="Back to Student Table"
+    aria-label="Button that goes back to the Student Table">Back</button>
+    <button matTooltip="Delete Student"
+    aria-label="Button that deletes the selected student from the record" class="bg-danger text-light" (click)="deleteStudentRecord()" mat-button mat-dialog-close cdkFocusInitial>Delete</button>
 </div>

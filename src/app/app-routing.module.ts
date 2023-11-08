@@ -5,6 +5,7 @@ import { AddStudentComponent } from './add-student/add-student.component';
 import { AttendanceComponent } from './attendance/attendance.component';
 import { StudentTableComponent } from './student-table/student-table.component';
 import { ViewComponent } from './view/view.component';
+import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
       {
         path: "view/:id",
         component: ViewComponent
+      },
+      {
+        path: "edit/:id",
+        component: EditComponent
       }
     ]
   },

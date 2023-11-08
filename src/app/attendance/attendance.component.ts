@@ -5,26 +5,31 @@ import { StudentDataService } from 'src/shared/services/student-data.service';
 import { AttendanceDetails, IdData, StudentData } from 'src/shared/models/interface';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { AlreadyExistsComponent } from '../already-exists/already-exists.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-attendance',
   templateUrl: './attendance.component.html',
   styleUrls: ['./attendance.component.scss']
 })
-export class AttendanceComponent implements OnInit{
+export class AttendanceComponent implements OnInit {
   attendanceData: FormGroup = this.fb.group({});
   ids: IdData[] = [];
   studentData: StudentData[] = [];
+  currentStudent!: StudentData;
   //oneStudentData: StudentData[] = [];
-  oneStudentData = new BehaviorSubject<StudentData>(
-    {"id": 0,
-    "name": "string",
-    "number": 1,
-    "email": "string",
-    "attendance" : [{"date": new Date("2023-01-01"), "status": "absent", "id": 0}]}
-  );
+  // oneStudentData = new BehaviorSubject<StudentData>(
+  //   {
+  //     "id": 0,
+  //     "name": "string",
+  //     "number": 1,
+  //     "email": "string",
+  //     "attendance": [{ "date": new Date("2023-01-01"), "status": "absent", "id": 0 }]
+  //   }
+  // );
 
-  constructor(private studentDataService: StudentDataService, private fb: FormBuilder, private router: Router) { }
+  constructor(private studentDataService: StudentDataService, public dialog: MatDialog, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.studentDataService.fetchSpecificDataFromAPI();
@@ -37,42 +42,61 @@ export class AttendanceComponent implements OnInit{
   }
 
   getStudentIds() {
-    console.log(this.studentDataService.subject)
     this.studentDataService.subject.subscribe({
       next: (res) => {
         this.studentData = res;
         this.studentData.map((record) => {
-          this.ids.push({'id': record.id, 'name': record.name})
+          this.ids.push({ 'id': record.id, 'name': record.name })
         })
       }
     })
+  }
+
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open(AlreadyExistsComponent, {
+      width: '400px',
+      enterAnimationDuration,
+      exitAnimationDuration
+    });
   }
 
   markAttendance(): void {
     const POST_DATA: AttendanceDetails = this.attendanceData.getRawValue();
     const ID: number = POST_DATA.id;
 
-    
-    this.oneStudentData.subscribe(
-      data => {
-        console.log('data', data);
-        console.log('post', POST_DATA);
-        
-        if (JSON.stringify(POST_DATA) != '{}') {
-          this.oneStudentData.value['attendance'].push({"date": POST_DATA.date, "status": POST_DATA.status, "id": POST_DATA.id});
-          console.log(this.oneStudentData);
+
+    this.studentDataService.fetchSpecificStudentFromAPI(ID).subscribe({
+      next: (data) => {
+        this.currentStudent = data;
+
+        // check if attendance for selected date already exists
+        const attendanceExists = data.attendance.find((a: any) => a.date.toString() === POST_DATA.date.toString());
+        if (attendanceExists) {
+          this.openDialog('0ms', '0ms');
+          return
         }
 
-        this.studentDataService.postAttendance(ID, this.oneStudentData.value).subscribe(
-          {
-            next: (response) => {
-              this.router.navigate([`dashboard/view/${ID}`]);
+        // add new attendance record
+        if (JSON.stringify(POST_DATA) != '{}') {
+          this.currentStudent.attendance.push({
+            "date": POST_DATA.date,
+            "status": POST_DATA.status,
+            "id": POST_DATA.id
+          });
+        }
+
+        // update student data with new attendance record
+        this.studentDataService.postAttendance(ID, this.currentStudent).subscribe({
+          next: (response) => {
+            this.router.navigate([`/dashboard/view/${ID}`]);
           },
-            error: error => alert('error' + error)
-          },
-        );
+          error: error => alert('Error: ' + error)
+        });
+      },
+      error: (err) => {
+        console.error(err);
       }
-    );    
+    });
 
     this.getStudentData(ID);
 
@@ -82,13 +106,12 @@ export class AttendanceComponent implements OnInit{
     this.studentDataService.fetchSpecificStudentFromAPI(id).subscribe(
       {
         next: (res) => {
-          this.oneStudentData.next(res);
-          console.log('oneStudentData', this.oneStudentData);
+          this.studentData = res;
         },
 
         error: (err) => {
           console.error(err);
         }
-    })
+      })
   }
 }
